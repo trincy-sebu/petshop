@@ -37,45 +37,48 @@ if (isset($_GET['bill_id'])) {
 <html>
 <head>
     <title>View Bill</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>View Bill</h2>
+    <div class="container">
+        <h2>View Bill</h2>
 
-    <form method="GET" action="view_bill.php">
-        <label for="bill_id">Enter Bill ID:</label>
-        <input type="text" id="bill_id" name="bill_id" required>
-        <input type="submit" value="View Bill">
-    </form>
+        <form method="GET" action="view_bill.php">
+            <label for="bill_id">Enter Bill ID:</label>
+            <input type="text" id="bill_id" name="bill_id" required>
+            <input type="submit" value="View Bill">
+        </form>
 
-    <?php if ($bill_details): ?>
-        <h3>Bill Details</h3>
-        <p><strong>Bill ID:</strong> <?php echo $bill_details['bill_id']; ?></p>
-        <p><strong>Registration No:</strong> <?php echo $bill_details['RegNo']; ?></p>
-        <p><strong>Owner Name:</strong> <?php echo $bill_details['owner_name']; ?></p>
-        <p><strong>Pet Name:</strong> <?php echo $bill_details['pet_name']; ?></p>
-        <p><strong>Bill Date:</strong> <?php echo $bill_details['bill_date']; ?></p>
-        <p><strong>Total Amount:</strong> <?php echo $bill_details['total_amount']; ?></p>
-        <p><strong>Status:</strong> <?php echo $bill_details['status']; ?></p>
+        <?php if ($bill_details): ?>
+            <h3>Bill Details</h3>
+            <p><strong>Bill ID:</strong> <?php echo $bill_details['bill_id']; ?></p>
+            <p><strong>Registration No:</strong> <?php echo $bill_details['RegNo']; ?></p>
+            <p><strong>Owner Name:</strong> <?php echo $bill_details['owner_name']; ?></p>
+            <p><strong>Pet Name:</strong> <?php echo $bill_details['pet_name']; ?></p>
+            <p><strong>Bill Date:</strong> <?php echo $bill_details['bill_date']; ?></p>
+            <p><strong>Total Amount:</strong> <?php echo $bill_details['total_amount']; ?></p>
+            <p><strong>Status:</strong> <?php echo $bill_details['status']; ?></p>
 
-        <h3>Bill Items</h3>
-        <table border="1">
-            <tr>
-                <th>Item Description</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Subtotal</th>
-            </tr>
-            <?php foreach ($bill_items as $item): ?>
-            <tr>
-                <td><?php echo $item['item_description']; ?></td>
-                <td><?php echo $item['quantity']; ?></td>
-                <td><?php echo $item['unit_price']; ?></td>
-                <td><?php echo $item['subtotal']; ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php elseif (isset($_GET['bill_id'])): ?>
-        <p>No bill found with the specified ID.</p>
-    <?php endif; ?>
+            <h3>Bill Items</h3>
+            <table>
+                <tr>
+                    <th>Item Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Subtotal</th>
+                </tr>
+                <?php foreach ($bill_items as $item): ?>
+                <tr>
+                    <td><?php echo $item['item_description']; ?></td>
+                    <td><?php echo $item['quantity']; ?></td>
+                    <td><?php echo $item['unit_price']; ?></td>
+                    <td><?php echo $item['subtotal']; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php elseif (isset($_GET['bill_id'])): ?>
+            <p class="error">No bill found with the specified ID.</p>
+        <?php endif; ?>
+    </div>
 </body>
 </html>

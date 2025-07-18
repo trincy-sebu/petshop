@@ -29,22 +29,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Record Consultation</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>Record Consultation</h2>
-    <?php if (isset($message)) { echo "<p>$message</p>"; } ?>
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
-    <form method="POST" action="record_consultation.php">
-        <label for="RegNo">Registration No:</label>
-        <input type="text" id="RegNo" name="RegNo" required><br><br>
+    <div class="container">
+        <h2>Record Consultation</h2>
+        <?php if (isset($message)) { echo "<p class='message'>$message</p>"; } ?>
+        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+        <form method="POST" action="record_consultation.php">
+            <label for="RegNo">Registration No:</label>
+            <input type="text" id="RegNo" name="RegNo" required>
 
-        <label for="diagnosis">Diagnosis:</label>
-        <textarea id="diagnosis" name="diagnosis" required></textarea><br><br>
+            <label for="diagnosis">Diagnosis:</label>
+            <textarea id="diagnosis" name="diagnosis" required></textarea>
 
-        <label for="notes">Notes:</label>
-        <textarea id="notes" name="notes"></textarea><br><br>
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes"></textarea>
 
-        <input type="submit" value="Record Consultation">
-    </form>
+            <input type="submit" value="Record Consultation">
+        </form>
+    </div>
 </body>
 </html>

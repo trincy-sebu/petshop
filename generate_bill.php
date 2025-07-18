@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Generate Bill</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script>
         function addItem() {
             var itemsDiv = document.getElementById('items');
@@ -76,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             var newItem = document.createElement('div');
             newItem.className = 'item';
             newItem.innerHTML = `
-                <hr>
                 <label>Item Description:</label>
                 <input type="text" name="items[${itemIndex}][description]" required>
                 <label>Quantity:</label>
@@ -89,30 +89,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
-    <h2>Generate Bill</h2>
-    <?php if (isset($message)) { echo "<p>$message</p>"; } ?>
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
-    <form method="POST" action="generate_bill.php">
-        <label for="RegNo">Registration No:</label>
-        <input type="text" id="RegNo" name="RegNo" required><br><br>
+    <div class="container">
+        <h2>Generate Bill</h2>
+        <?php if (isset($message)) { echo "<p class='message'>$message</p>"; } ?>
+        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+        <form method="POST" action="generate_bill.php">
+            <label for="RegNo">Registration No:</label>
+            <input type="text" id="RegNo" name="RegNo" required>
 
-        <label for="consultation_id">Consultation ID:</label>
-        <input type="text" id="consultation_id" name="consultation_id" required><br><br>
+            <label for="consultation_id">Consultation ID:</label>
+            <input type="text" id="consultation_id" name="consultation_id" required>
 
-        <h3>Bill Items</h3>
-        <div id="items">
-            <div class="item">
-                <label>Item Description:</label>
-                <input type="text" name="items[0][description]" required>
-                <label>Quantity:</label>
-                <input type="number" name="items[0][quantity]" required>
-                <label>Unit Price:</label>
-                <input type="text" name="items[0][unit_price]" required>
+            <h3>Bill Items</h3>
+            <div id="items">
+                <div class="item">
+                    <label>Item Description:</label>
+                    <input type="text" name="items[0][description]" required>
+                    <label>Quantity:</label>
+                    <input type="number" name="items[0][quantity]" required>
+                    <label>Unit Price:</label>
+                    <input type="text" name="items[0][unit_price]" required>
+                </div>
             </div>
-        </div>
-        <button type="button" onclick="addItem()">Add Another Item</button><br><br>
+            <button type="button" onclick="addItem()">Add Another Item</button>
 
-        <input type="submit" value="Generate Bill">
-    </form>
+            <input type="submit" value="Generate Bill">
+        </form>
+    </div>
 </body>
 </html>

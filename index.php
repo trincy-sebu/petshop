@@ -11,22 +11,42 @@ if (!isset($_SESSION['user_id'])) {
 <html>
 <head>
     <title>Pet Clinic</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>Welcome to the Pet Clinic</h2>
-    <p>You are logged in as <?php echo $_SESSION['user_type']; ?>.</p>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Pet Clinic</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="logout.php">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Welcome to the Pet Clinic</h2>
+        <p>You are logged in as <?php echo $_SESSION['user_type']; ?>.</p>
 
-    <?php if ($_SESSION['user_type'] === 'admin'): ?>
-        <a href="register.php">Register a new user</a><br>
-        <a href="edit_registration.php">Edit a Registration</a><br>
-        <a href="edit_bill.php">Edit a Bill</a><br>
-        <a href="cancel_bill.php">Cancel a Bill</a><br>
-    <?php endif; ?>
-    <a href="pet_registration.php">Register a new pet</a><br>
-    <a href="record_consultation.php">Record a Consultation</a><br>
-    <a href="generate_bill.php">Generate a Bill</a><br>
-    <a href="view_bill.php">View a Bill</a><br>
+        <h3>Staff Menu</h3>
+        <ul>
+            <li><a href="pet_registration.php">Register a new pet</a></li>
+            <li><a href="record_consultation.php">Record a Consultation</a></li>
+            <li><a href="generate_bill.php">Generate a Bill</a></li>
+            <li><a href="view_bill.php">View a Bill</a></li>
+        </ul>
 
-    <a href="logout.php">Logout</a>
+        <?php if ($_SESSION['user_type'] === 'admin'): ?>
+        <h3>Admin Menu</h3>
+        <ul>
+            <li><a href="register.php">Register a new user</a></li>
+            <li><a href="edit_registration.php">Edit a Registration</a></li>
+            <li><a href="edit_bill.php">Edit a Bill</a></li>
+            <li><a href="cancel_bill.php">Cancel a Bill</a></li>
+        </ul>
+        <?php endif; ?>
+    </div>
 </body>
 </html>

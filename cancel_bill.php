@@ -23,15 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Cancel Bill</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>Cancel Bill</h2>
-    <?php if (isset($message)) { echo "<p>$message</p>"; } ?>
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
-    <form method="POST" action="cancel_bill.php">
-        <label for="bill_id">Enter Bill ID to Cancel:</label>
-        <input type="text" id="bill_id" name="bill_id" required>
-        <input type="submit" value="Cancel Bill">
-    </form>
+    <div class="container">
+        <h2>Cancel Bill</h2>
+        <?php if (isset($message)) { echo "<p class='message'>$message</p>"; } ?>
+        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+        <form method="POST" action="cancel_bill.php">
+            <label for="bill_id">Enter Bill ID to Cancel:</label>
+            <input type="text" id="bill_id" name="bill_id" required>
+            <input type="submit" value="Cancel Bill">
+        </form>
+    </div>
 </body>
 </html>

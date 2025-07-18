@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Edit Bill</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script>
         function addItem() {
             var itemsDiv = document.getElementById('items');
@@ -79,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             var newItem = document.createElement('div');
             newItem.className = 'item';
             newItem.innerHTML = `
-                <hr>
                 <label>Item Description:</label>
                 <input type="text" name="items[${itemIndex}][description]" required>
                 <label>Quantity:</label>
@@ -92,52 +92,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
-    <h2>Edit Bill</h2>
+    <div class="container">
+        <h2>Edit Bill</h2>
 
-    <form method="GET" action="edit_bill.php">
-        <label for="bill_id">Enter Bill ID:</label>
-        <input type="text" id="bill_id" name="bill_id" required value="<?php echo isset($_GET['bill_id']) ? $_GET['bill_id'] : ''; ?>">
-        <input type="submit" value="Fetch Bill">
-    </form>
+        <form method="GET" action="edit_bill.php">
+            <label for="bill_id">Enter Bill ID:</label>
+            <input type="text" id="bill_id" name="bill_id" required value="<?php echo isset($_GET['bill_id']) ? $_GET['bill_id'] : ''; ?>">
+            <input type="submit" value="Fetch Bill">
+        </form>
 
-    <?php if (isset($_GET['message'])) { echo "<p>".$_GET['message']."</p>"; } ?>
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
+        <?php if (isset($_GET['message'])) { echo "<p class='message'>".$_GET['message']."</p>"; } ?>
+        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
 
-    <?php if ($bill_details): ?>
-    <form method="POST" action="edit_bill.php">
-        <input type="hidden" name="bill_id" value="<?php echo $bill_details['bill_id']; ?>">
+        <?php if ($bill_details): ?>
+        <form method="POST" action="edit_bill.php">
+            <input type="hidden" name="bill_id" value="<?php echo $bill_details['bill_id']; ?>">
 
-        <p><strong>Bill ID:</strong> <?php echo $bill_details['bill_id']; ?></p>
-        <p><strong>Registration No:</strong> <?php echo $bill_details['RegNo']; ?></p>
+            <p><strong>Bill ID:</strong> <?php echo $bill_details['bill_id']; ?></p>
+            <p><strong>Registration No:</strong> <?php echo $bill_details['RegNo']; ?></p>
 
-        <label for="status">Status:</label>
-        <select id="status" name="status">
-            <option value="pending" <?php if($bill_details['status'] == 'pending') echo 'selected'; ?>>Pending</option>
-            <option value="paid" <?php if($bill_details['status'] == 'paid') echo 'selected'; ?>>Paid</option>
-            <option value="cancelled" <?php if($bill_details['status'] == 'cancelled') echo 'selected'; ?>>Cancelled</option>
-        </select><br><br>
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="pending" <?php if($bill_details['status'] == 'pending') echo 'selected'; ?>>Pending</option>
+                <option value="paid" <?php if($bill_details['status'] == 'paid') echo 'selected'; ?>>Paid</option>
+                <option value="cancelled" <?php if($bill_details['status'] == 'cancelled') echo 'selected'; ?>>Cancelled</option>
+            </select>
 
-        <h3>Bill Items</h3>
-        <div id="items">
-            <?php foreach ($bill_items as $index => $item): ?>
-            <div class="item">
-                <label>Item Description:</label>
-                <input type="text" name="items[<?php echo $index; ?>][description]" value="<?php echo $item['item_description']; ?>" required>
-                <label>Quantity:</label>
-                <input type="number" name="items[<?php echo $index; ?>][quantity]" value="<?php echo $item['quantity']; ?>" required>
-                <label>Unit Price:</label>
-                <input type="text" name="items[<?php echo $index; ?>][unit_price]" value="<?php echo $item['unit_price']; ?>" required>
+            <h3>Bill Items</h3>
+            <div id="items">
+                <?php foreach ($bill_items as $index => $item): ?>
+                <div class="item">
+                    <label>Item Description:</label>
+                    <input type="text" name="items[<?php echo $index; ?>][description]" value="<?php echo $item['item_description']; ?>" required>
+                    <label>Quantity:</label>
+                    <input type="number" name="items[<?php echo $index; ?>][quantity]" value="<?php echo $item['quantity']; ?>" required>
+                    <label>Unit Price:</label>
+                    <input type="text" name="items[<?php echo $index; ?>][unit_price]" value="<?php echo $item['unit_price']; ?>" required>
+                </div>
+                <?php endforeach; ?>
             </div>
-            <hr>
-            <?php endforeach; ?>
-        </div>
-        <button type="button" onclick="addItem()">Add Another Item</button><br><br>
+            <button type="button" onclick="addItem()">Add Another Item</button>
 
-        <input type="submit" value="Update Bill">
-    </form>
-    <?php elseif (isset($_GET['bill_id'])): ?>
-        <p>No bill found with the specified ID.</p>
-    <?php endif; ?>
-
+            <input type="submit" value="Update Bill">
+        </form>
+        <?php elseif (isset($_GET['bill_id'])): ?>
+            <p class="error">No bill found with the specified ID.</p>
+        <?php endif; ?>
+    </div>
 </body>
 </html>

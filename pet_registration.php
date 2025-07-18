@@ -50,39 +50,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Owner and Pet Registration</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h2>Owner and Pet Registration</h2>
-    <?php if (isset($message)) { echo "<p>$message</p>"; } ?>
-    <?php if (isset($error)) { echo "<p>$error</p>"; } ?>
-    <form method="POST" action="pet_registration.php">
-        <label for="owner_name">Owner Name:</label>
-        <input type="text" id="owner_name" name="owner_name" required><br><br>
+    <div class="container">
+        <h2>Owner and Pet Registration</h2>
+        <?php if (isset($message)) { echo "<p class='message'>$message</p>"; } ?>
+        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+        <form method="POST" action="pet_registration.php">
+            <label for="owner_name">Owner Name:</label>
+            <input type="text" id="owner_name" name="owner_name" required>
 
-        <label for="owner_address">Owner Address:</label>
-        <textarea id="owner_address" name="owner_address" required></textarea><br><br>
+            <label for="owner_address">Owner Address:</label>
+            <textarea id="owner_address" name="owner_address" required></textarea>
 
-        <label for="owner_phone">Owner Phone:</label>
-        <input type="text" id="owner_phone" name="owner_phone" required><br><br>
+            <label for="owner_phone">Owner Phone:</label>
+            <input type="text" id="owner_phone" name="owner_phone" required>
 
-        <label for="owner_email">Owner Email:</label>
-        <input type="email" id="owner_email" name="owner_email" required><br><br>
+            <label for="owner_email">Owner Email:</label>
+            <input type="email" id="owner_email" name="owner_email" required>
 
-        <hr>
+            <hr>
 
-        <label for="pet_name">Pet Name:</label>
-        <input type="text" id="pet_name" name="pet_name" required><br><br>
+            <label for="pet_name">Pet Name:</label>
+            <input type="text" id="pet_name" name="pet_name" required>
 
-        <label for="species">Species:</label>
-        <input type="text" id="species" name="species" required><br><br>
+            <label for="species">Species:</label>
+            <input type="text" id="species" name="species" required>
 
-        <label for="breed">Breed:</label>
-        <input type="text" id="breed" name="breed" required><br><br>
+            <label for="breed">Breed:</label>
+            <input type="text" id="breed" name="breed" required>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required><br><br>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
 
-        <input type="submit" value="Register">
-    </form>
+            <input type="submit" value="Register">
+        </form>
+    </div>
 </body>
 </html>
