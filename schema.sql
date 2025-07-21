@@ -57,3 +57,9 @@ CREATE TABLE bill_items (
     subtotal DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (bill_id) REFERENCES bills(bill_id)
 );
+
+-- Create the billable_items table
+CREATE TABLE billable_items (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL UNIQUE
+);

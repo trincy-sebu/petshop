@@ -23,6 +23,14 @@ function generateBillId($conn) {
     return $current_year . '-' . str_pad($new_seq_id, 4, '0', STR_PAD_LEFT);
 }
 
+// Fetch billable items from the database
+$billable_items_query = "SELECT item_name FROM billable_items";
+$billable_items_result = mysqli_query($conn, $billable_items_query);
+$billable_items = [];
+while ($row = mysqli_fetch_assoc($billable_items_result)) {
+    $billable_items[] = $row['item_name'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bill_id = generateBillId($conn);
     $consultation_id = $_POST['consultation_id'];
@@ -76,9 +84,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             var itemIndex = itemsDiv.getElementsByClassName('item').length;
             var newItem = document.createElement('div');
             newItem.className = 'item';
+
+            var billableItems = <?php echo json_encode($billable_items); ?>;
+            var selectHTML = '<select name="items[' + itemIndex + '][description]" required>';
+            for (var i = 0; i < billableItems.length; i++) {
+                selectHTML += '<option value="' + billableItems[i] + '">' + billableItems[i] + '</option>';
+            }
+            selectHTML += '</select>';
+
             newItem.innerHTML = `
                 <label>Item Description:</label>
-                <input type="text" name="items[${itemIndex}][description]" required>
+                ${selectHTML}
                 <label>Quantity:</label>
                 <input type="number" name="items[${itemIndex}][quantity]" required>
                 <label>Unit Price:</label>
@@ -104,7 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="items">
                 <div class="item">
                     <label>Item Description:</label>
-                    <input type="text" name="items[0][description]" required>
+                    <select name="items[0][description]" required>
+                        <?php foreach ($billable_items as $item): ?>
+                            <option value="<?php echo $item; ?>"><?php echo $item; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     <label>Quantity:</label>
                     <input type="number" name="items[0][quantity]" required>
                     <label>Unit Price:</label>
